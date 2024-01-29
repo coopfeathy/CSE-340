@@ -71,10 +71,6 @@ main {
     padding: 20px;
 }
 
-main img {
-    max-width: 100%;
-}
-
 .container {
     position: relative;
 }
@@ -119,6 +115,66 @@ main img {
   flex-direction: column;
   align-items: center;
   justify-content: space-around;
+}
+
+#inv-display {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 20px;
+  padding: 20px;
+}
+
+#inv-display li {
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  overflow: hidden;
+  list-style-type: none;
+}
+
+#inv-display li img {
+  width: 100%;
+  height: auto;
+}
+
+#inv-display .namePrice {
+  padding: 10px;
+}
+
+#inv-display .namePrice h2 {
+  margin: 0;
+  font-size: 1.2em;
+}
+
+#inv-display .namePrice span {
+  display: block;
+  color: #333;
+  font-size: 1em;
+}
+
+.vehicle{
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.vehicle-image{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.vehicle img{
+    width: 500px;
+    height: auto;
+    object-fit: contain;
+}
+
+.vehicle-info{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
 }
 
 /* Code for the footer */
@@ -172,6 +228,11 @@ footer {
 @media only screen and (min-width: 64rem) {
   #wrapper {
         width: 80%;
+    }
+
+    .vehicle{
+        display: flex;
+        flex-direction: row;
     }
 
     nav {
