@@ -177,6 +177,43 @@ main {
     text-align: center;
 }
 
+.notice{
+    color: red;
+    font-size: 1em;
+    list-style: "* ";
+}
+
+form {
+    width: 300px;
+    margin: 0 auto;
+}
+
+form label {
+    display: block;
+    margin-top: 20px;
+}
+
+form input[type="text"], form input[type="email"], form input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+}
+
+form button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin-top: 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+form button:hover {
+    background-color: #45a049;
+}
+
 /* Code for the footer */
 footer {
     text-align: center;
