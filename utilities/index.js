@@ -76,6 +76,20 @@ Util.buildVehicleHtml = (vehicle) => {
   return grid;
 };
 
+
+/* **************************************
+* Build the classification options
+* ************************************ */
+Util.buildOptions = async function() {
+  const classificationData = await invModel.getClassifications()
+  let options = ''
+  const classInner = [classificationData.rows]
+  classInner[0].forEach(classification => {
+      options += `<option value= ${classification.classification_id} >${classification.classification_name}</option>`
+  })
+  return options
+}
+
 /* ****************************************
  * Middleware For Handling Errors
  * Wrap other function in this for 

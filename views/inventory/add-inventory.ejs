@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<body>
+    <h1><%= title %></h1>
+
+    <%- messages() %>
+
+    <form class="newInv" action="/add-inventory" method="post">
+        <label for="inv_make">Vehicle Make:</label><br>
+        <input type="text" id="inv_make" name="inv_make" required><br>
+        <label for="inv_model">Vehicle Model:</label><br>
+        <input type="text" id="inv_model" name="inv_model" required><br>
+        <label for="inv_year">Vehicle Year:</label><br>
+        <input type="text" id="inv_year" name="inv_year" required><br>
+        <label for="inv_description">Vehicle Description:</label><br>
+        <input type="text" id="inv_description" name="inv_description" required><br>
+        <label for="inv_image">Vehicle Image:</label><br>
+        <input type="text" id="inv_image" name="inv_image" required value="/images/vehicles/no-image.png"><br>
+        <label for="inv_thumbnail">Vehicle Thumbnail Image:</label><br>
+        <input type="text" id="inv_thumbnail" name="inv_thumbnail" required value="/images/vehicles/no-image-tn.png"><br>
+        <label for="inv_price">Vehicle Price:</label><br>
+        <input type="text" id="inv_price" name="inv_price" required><br>
+        <label for="inv_miles">Vehicle Miles:</label><br>
+        <input type="text" id="inv_miles" name="inv_miles" required><br>
+        <label for="inv_color">Vehicle Color:</label><br>
+        <input type="text" id="inv_color" name="inv_color" required><br>
+        <label for="classification_id">Vehicle Classification:</label><br>
+        <select name="classification_id" id="classification_id">
+            <%- options %>
+        </select>
+        <button type="submit">Add Classification</button>
+    </form>
+</body>
+</html>

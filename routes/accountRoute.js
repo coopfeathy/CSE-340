@@ -17,9 +17,5 @@ router.post(
     utilities.handleErrors(accountController.registerAccount)
 )
 
-router.get('/error', (req, res, next) => {
-    next(new Error('Intentional Error'));
-});
-
 module.exports = router;
 
