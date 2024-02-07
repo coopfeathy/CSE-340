@@ -63,17 +63,11 @@ app.use("/inv", inventoryRoute)
 //account route
 app.use('/account', accountRoute);
 
-
 // File Not Found Route - must be last route in list
 app.use(async (req, res, next) => {
   next({status: 404, message: 'Sorry, we appear to have lost that page.'})
 })
 
-
-app.use((err, req, res, next) => {
-  console.error(err.stack);
-  res.status(500).render('errors/error', { error: err });
-});
 /* ***********************
 * Express Error Handler
 * Place after all other middleware
@@ -88,6 +82,8 @@ app.use(async (err, req, res, next) => {
     nav
   })
 })
+
+
 
 /* ***********************
  * Local Server Information
