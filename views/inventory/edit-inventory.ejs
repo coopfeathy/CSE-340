@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<body>
+    <h1><%= title %></h1>
+
+    <%- messages() %>
+
+    <form id="updateForm" action="/inv/update" method="post">
+        <label for="classification_id">
+            Classification:
+            <%- options %>
+        </label>
+        <label for="inv_make">Vehicle Make:</label><br>
+        <input type="text" id="inv_make" name="inv_make" value="<%= locals.inv_make %>" required><br>
+        <label for="inv_model">Vehicle Model:</label><br>
+        <input type="text" id="inv_model" name="inv_model" value="<%= locals.inv_model %>" required><br>
+        <label for="inv_year">Vehicle Year:</label><br>
+        <input type="text" id="inv_year" name="inv_year" value="<%= locals.inv_year %>" required><br>
+        <label for="inv_description">Vehicle Description:</label><br>
+        <input type="text" id="inv_description" name="inv_description" value="<%= locals.inv_description %>" required><br>
+        <label for="inv_image">Vehicle Image:</label><br>
+        <input type="text" id="inv_image" name="inv_image" required value="<%= locals.inv_image %>"><br>
+        <label for="inv_thumbnail">Vehicle Thumbnail Image:</label><br>
+        <input type="text" id="inv_thumbnail" name="inv_thumbnail" required value="<%= locals.inv_thumbnail %>"><br>
+        <label for="inv_price">Vehicle Price:</label><br>
+        <input type="text" id="inv_price" name="inv_price" value="<%= locals.inv_price %>" required><br>
+        <label for="inv_miles">Vehicle Miles:</label><br>
+        <input type="text" id="inv_miles" name="inv_miles" value="<%= locals.inv_miles %>" required><br>
+        <label for="inv_color">Vehicle Color:</label><br>
+        <input type="text" id="inv_color" name="inv_color" value="<%= locals.inv_color %>" required><br>
+        <button type="submit" disabled>Update Vehicle</button>
+        <input type="hidden" name="inv_id" <% if(locals.inv_id) { %> value="<%= locals.inv_id %>"<% } %> >
+    </form>
+    <script src="../../js/inv-update.js"></script>
+</body>
+</html>

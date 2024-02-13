@@ -6,6 +6,10 @@
     <%- messages() %>
 
     <form class="newInv" action="/inv/add-inventory" method="post">
+        <label for="classification_id">
+            Classification:
+            <%- options %>
+        </label>
         <label for="inv_make">Vehicle Make:</label><br>
         <input type="text" id="inv_make" name="inv_make" required><br>
         <label for="inv_model">Vehicle Model:</label><br>
@@ -24,10 +28,6 @@
         <input type="text" id="inv_miles" name="inv_miles" required><br>
         <label for="inv_color">Vehicle Color:</label><br>
         <input type="text" id="inv_color" name="inv_color" required><br>
-        <label for="classification_id">Vehicle Classification:</label><br>
-        <select name="classification_id" id="classification_id">
-            <%- options %>
-        </select>
         <button type="submit">Add Classification</button>
     </form>
 </body>
