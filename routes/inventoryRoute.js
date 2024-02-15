@@ -12,10 +12,10 @@ router.get("/type/:classificationId", utilities.handleErrors(invController.build
 router.get("/detail/:id", utilities.handleErrors(invController.getVehicleById));
 
 // Route to build inventory management view
-router.get('/', utilities.handleErrors(invController.buildManagement));
+router.get('/', utilities.checkLogin, utilities.checkAccountType, utilities.handleErrors(invController.buildManagement));
 
 // Route to build add classification view
-router.get('/add-classification', utilities.handleErrors(invController.buildAddClassification));
+router.get('/add-classification', utilities.checkLogin, utilities.checkAccountType, utilities.handleErrors(invController.buildAddClassification));
 
 // Route to process add classification data
 router.post(
@@ -25,7 +25,7 @@ router.post(
   utilities.handleErrors(invController.addClassification));
 
 // Route to build add inventory view
-router.get('/add-inventory', utilities.handleErrors(invController.buildAddInventory));
+router.get('/add-inventory', utilities.checkLogin, utilities.checkAccountType, utilities.handleErrors(invController.buildAddInventory));
 
 // Route to process add inventory data
 router.post(
@@ -39,7 +39,7 @@ router.post(
 router.get("/getInventory/:classification_id", utilities.handleErrors(invController.getInventoryJSON))
 
 // Route to build edit inventory view
-router.get('/edit/:inv_id', utilities.handleErrors(invController.editInventoryView));
+router.get('/edit/:inv_id', utilities.checkLogin, utilities.checkAccountType, utilities.handleErrors(invController.editInventoryView));
 
 // Route to process update inventory data
 router.post(
@@ -50,7 +50,7 @@ router.post(
 );
 
 // Route to show delete confirmation view
-router.get('/delete/:inv_id', utilities.handleErrors(invController.showDeleteConfirmation));
+router.get('/delete/:inv_id', utilities.checkLogin, utilities.checkAccountType, utilities.handleErrors(invController.showDeleteConfirmation));
 
 // Route to handle delete process
 router.post('/delete/:inv_id', utilities.handleErrors(invController.deleteInventoryItem));

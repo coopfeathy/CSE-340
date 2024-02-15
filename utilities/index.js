@@ -122,6 +122,15 @@ Util.checkJWTToken = (req, res, next) => {
  }
 }
 
+Util.checkAccountType = (req, res, next) => {
+  if (res.locals.accountData.account_type == 'Employee' || res.locals.accountData.account_type == 'Admin') {
+    next();
+  } else {
+    req.flash("notice", "You don't have sufficient permissions to access this page.")
+    return res.redirect("/account/login")
+  }
+}
+
 /* ****************************************
  * Middleware For Handling Errors
  * Wrap other function in this for 

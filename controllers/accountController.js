@@ -104,12 +104,122 @@ async function accountLogin(req, res) {
  }
 }
 
-async function afterLogin(req, res, next) {
+async function buildAccountManagement(req, res, next) {
   let nav = await utilities.getNav()
+  const account_id = parseInt(res.locals.accountData.account_id)
+  const data = await accountModel.getAccountDetailsById(account_id)
+  let name = `${data.account_firstname} ${data.account_lastname}`
   res.render("account/management", {
-      title: "You're logged in",
+      title: "Account Management",
       nav,
+      name,
       errors: null,
   })
 }
-module.exports = { buildLogin, buildRegister, registerAccount, accountLogin, afterLogin }
+
+async function buildAccountUpdate(req, res, next) {
+  const account_id = parseInt(res.locals.accountData.account_id)
+  let nav = await utilities.getNav()
+  const data = await accountModel.getAccountDetailsById(account_id)
+  let name = `${data.account_firstname} ${data.account_lastname}`
+  res.render("account/update", {
+    errors: null,
+    title: `Update ${name}'s  account`,
+    nav,
+    account_firstname : data.account_firstname,
+    account_lastname : data.account_lastname,
+    account_email : data.account_email,
+    account_id : account_id
+  })
+}
+
+/*Process to update the account */
+async function accountUpdate(req, res) {
+  const {account_id, account_firstname, account_lastname, account_email } = req.body 
+
+  const updateResult = await accountModel.updateAccount (
+    account_id, account_firstname, account_lastname, account_email
+    ) 
+
+  if (updateResult)
+  {
+    let AccountName = updateResult.account_firstname + " " + updateResult.account_lastname
+    req.flash("notice", `The account for ${AccountName} was successfully updated.`)
+    res.redirect("/account/")
+  } else
+  {
+    let nav = utilities.getNav()
+    const data = await accountModel.getAccountDetailsById(account_id)
+    let AccountName = data.account_firstname + " " + data.account_lastname
+    req.flash("notice", "Sorry, the update attempt failed, please verify the information and try again.")
+    res.status(501).render("account/update",{
+      errors: null,
+      title: `Update ${AccountName}'s  account information`,
+      nav,
+      account_firstname : data.account_firstname,
+      account_lastname : data.account_lastname,
+      account_email : data.account_email,
+      account_id : account_id
+    })
+  }
+}
+
+/*Process to update the password */
+async function passwordUpdate(req, res) {
+  const {account_password, account_id} = req.body 
+  let hashedPassword
+  try {
+    hashedPassword = await bcrypt.hashSync(account_password, 10)
+  } catch (error) {
+    const data = await accountModel.getAccountDetailsById(account_id)
+    const AccountName = data.account_firstname + " " + data.account_lastname
+    req.flash("notice", 'Sorry, there was an error processing the update.')
+    res.status(501).render("account/update",{
+      errors: null,
+      title: `Update ${AccountName}'s  account information`,
+      nav,
+      account_firstname : data.account_firstname,
+      account_lastname : data.account_lastname,
+      account_email : data.account_email,
+      account_id : account_id
+      })
+  }
+
+  const updateResult = await accountModel.passwordUpdate ( hashedPassword, account_id ) 
+
+  if (updateResult)  
+  {
+    const data = await accountModel.getAccountDetailsById(account_id)
+    const AccountName = data.account_firstname + " " + data.account_lastname
+    req.flash("notice", `The password for ${AccountName} was successfully updated.`)
+    res.redirect("/account/")
+  } else 
+  {
+    let nav = utilities.getNav()
+    const data = await accountModel.getAccountDetailsById(account_id)
+    const AccountName = data.account_firstname + " " + data.account_lastname
+    req.flash("notice", "Sorry, the update attempt failed, please verify the information and try again.")
+    res.status(501).render("account/update",{
+      errors: null,
+      title: `Update ${AccountName}'s  account information`,
+      nav,
+      account_firstname : data.account_firstname,
+      account_lastname : data.account_lastname,
+      account_email : data.account_email,
+      account_id : account_id
+    })
+  }
+}
+
+async function logout(req, res) {
+  req.session.destroy(function (err) {
+    if (err) {
+      console.log(err);
+    } else {
+      res.clearCookie("jwt");
+      res.redirect("/");
+    }
+  })
+}
+
+module.exports = { buildLogin, buildRegister, registerAccount, accountLogin, buildAccountManagement, buildAccountUpdate, accountUpdate, passwordUpdate, logout }
