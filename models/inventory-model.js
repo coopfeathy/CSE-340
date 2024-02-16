@@ -128,5 +128,9 @@ async function deleteInventoryItem(inv_id) {
   }
 }
 
+async function searchInventory(term) {
+  const data = await pool.query(`SELECT * FROM inventory WHERE inv_make LIKE $1 OR inv_model LIKE $1 OR inv_description LIKE $1`, [`%${term}%`]);
+  return data.rows;
+}
 
-module.exports = {getClassifications, getClassificationName, getInventoryByClassificationId, getVehicleById, addClassification, checkExistingClassification, addInventory, updateInventory, deleteInventoryItem};
+module.exports = {getClassifications, getClassificationName, getInventoryByClassificationId, getVehicleById, addClassification, checkExistingClassification, addInventory, updateInventory, deleteInventoryItem, searchInventory };

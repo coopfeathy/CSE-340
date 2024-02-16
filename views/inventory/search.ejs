@@ -1,0 +1,10 @@
+<h1><%= title %></h1>
+
+<%- messages() %>
+
+<form action="/inv/search/results" method="get">
+    <input type="text" name="search" placeholder="Search" value="<%= search %>">
+    <button type="submit">Search</button>
+</form>
+
+<%- grid %>

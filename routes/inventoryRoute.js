@@ -55,5 +55,12 @@ router.get('/delete/:inv_id', utilities.checkLogin, utilities.checkAccountType, 
 // Route to handle delete process
 router.post('/delete/:inv_id', utilities.handleErrors(invController.deleteInventoryItem));
 
+// Route to build search view
+router.get('/search', utilities.handleErrors(invController.buildSearch));
+
+// Route to process search request
+router.get('/search/results', utilities.handleErrors(invController.search));
+
+
 module.exports = router;
 

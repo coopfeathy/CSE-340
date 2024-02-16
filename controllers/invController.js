@@ -295,4 +295,31 @@ invCont.deleteInventoryItem = async function (req, res, next) {
   }
 }
 
+invCont.buildSearch = async function (req, res) {
+  let nav = await utilities.getNav()
+  let grid = ''
+  res.render("inventory/search", {
+      title: "Search Inventory",
+      nav,
+      errors: null,
+      search: '', 
+      grid
+  })
+}
+
+invCont.search = async function (req, res, next) {
+  const search = req.query.search
+  const data = await invModel.searchInventory(search)
+  console.log(JSON.stringify(data))
+  let nav = await utilities.getNav()
+  let grid   
+  grid = await utilities.buildClassificationGrid(data)
+  res.render("inventory/search", {
+    title: "Search Results",
+    nav,
+    grid,
+    search
+  })
+}
+
 module.exports = invCont
